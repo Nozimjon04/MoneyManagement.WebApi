@@ -1,5 +1,6 @@
 ﻿using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.DTOs;
+using MoneyManagement.Service.DTOs.Wallets;
 using System.Linq.Expressions;
 
 namespace MoneyManagement.Service.Interfaces;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyManagement.Data.Contexts;
 
@@ -11,9 +12,10 @@ using MoneyManagement.Data.Contexts;
 namespace MoneyManagement.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605140637_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +57,7 @@ namespace MoneyManagement.Data.Migrations
 
                     b.HasIndex("WalletId");
 
-                    b.ToTable("Budgets");
+                    b.ToTable("Budget");
                 });
 
             modelBuilder.Entity("MoneyManagement.Domain.Entities.Category", b =>
@@ -80,7 +82,7 @@ namespace MoneyManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("MoneyManagement.Domain.Entities.Goal", b =>
@@ -116,7 +118,7 @@ namespace MoneyManagement.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Goals");
+                    b.ToTable("Goal");
                 });
 
             modelBuilder.Entity("MoneyManagement.Domain.Entities.Reminder", b =>
@@ -149,7 +151,7 @@ namespace MoneyManagement.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reminders");
+                    b.ToTable("Reminder");
                 });
 
             modelBuilder.Entity("MoneyManagement.Domain.Entities.Report", b =>
@@ -182,7 +184,7 @@ namespace MoneyManagement.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reports");
+                    b.ToTable("Report");
                 });
 
             modelBuilder.Entity("MoneyManagement.Domain.Entities.Transaction", b =>
@@ -223,7 +225,7 @@ namespace MoneyManagement.Data.Migrations
 
                     b.HasIndex("WalletId");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("MoneyManagement.Domain.Entities.User", b =>

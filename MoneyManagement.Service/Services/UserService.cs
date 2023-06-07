@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.DTOs;
+using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
 using System.Linq.Expressions;
@@ -79,7 +80,6 @@ public class UserService : IUserService
 		if (user is null)
 			throw new CustomException(404, "User is not found ");
 		
-		//var mappedUser = this.mapper.Map<User>(dto);
 		var result = this.mapper.Map(dto, user);
 		result.Id=id;
 		result.UpdateAt=DateTime.UtcNow;

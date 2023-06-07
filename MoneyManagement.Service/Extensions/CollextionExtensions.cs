@@ -1,6 +1,6 @@
 ﻿using MoneyManagement.Domain.Commons;
-using MoneyManagement.Domain.Configurations;
 using MoneyManagement.Service.Exceptions;
+using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.Service.Extensions;
 

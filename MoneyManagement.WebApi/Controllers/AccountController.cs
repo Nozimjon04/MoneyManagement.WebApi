@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoneyManagement.Service.DTOs;
+using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.WebApi.Models;
 
 namespace MoneyManagement.WebApi.Controllers
 {
-	public class AccountController : BaseController
+    public class AccountController : BaseController
 	{
 		private readonly IUserService userService;
 		private readonly IAuthService authService;

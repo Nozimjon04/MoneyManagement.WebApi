@@ -2,6 +2,7 @@
 using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.DTOs;
+using MoneyManagement.Service.DTOs.Wallets;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
 using System.Linq.Expressions;

@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+﻿using System.Text;
+using System.Reflection;
 using Microsoft.OpenApi.Models;
-using MoneyManagement.Data.IRepositories;
+using Microsoft.IdentityModel.Tokens;
+using MoneyManagement.Service.Services;
 using MoneyManagement.Data.Repositories;
 using MoneyManagement.Service.Interfaces;
-using MoneyManagement.Service.Services;
-using System.Reflection;
-using System.Text;
+using MoneyManagement.Data.IRepositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MoneyManagement.WebApi.Extensions
 {
@@ -14,10 +14,12 @@ namespace MoneyManagement.WebApi.Extensions
 	{
 		public static void AddCustomService(this IServiceCollection services)
 		{
+			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IWalletService, WalletService>();
-			services.AddScoped<IAuthService, AuthService>();
-			services.AddScoped(typeof(IRepostory<>), typeof(Repository<>));
+			services.AddScoped<ICategoryService,CategoryService>();
+			services.AddScoped<ITransactionService, TransactionService>();
+			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 		}
 
 		public static void AddJwtService(this IServiceCollection services, IConfiguration configuration)

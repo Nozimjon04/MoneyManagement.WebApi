@@ -1,21 +1,19 @@
 ﻿using MoneyManagement.Domain.Commons;
 using MoneyManagement.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Transactions;
 
 namespace MoneyManagement.Domain.Entities;
 
-public class Wallet: Auditable
+public class Transaction : Auditable
 {
-	public long UserId { get; set; }
-	public User User { get; set; }
+	public long WalletId { get; set; }
+	public Wallet Wallet { get; set; }
+	public long CategoryId { get; set; }
+	public Category Category { get; set; }
+	public TransactionType Tye { get; set; }
 
 	[Column(TypeName = "decimal(10,2)")]
 	public decimal Amount { get; set; }
 	public string Description { get; set; }
-
-	// EF Core Relationship
-	public ICollection<Transaction> Transactions { get; set; }
-	public ICollection<Budget> Budgets { get; set; }
 
 }

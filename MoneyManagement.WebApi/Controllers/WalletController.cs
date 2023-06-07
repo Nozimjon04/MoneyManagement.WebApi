@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MoneyManagement.Service.DTOs;
+using MoneyManagement.Service.DTOs.Wallets;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.WebApi.Models;
 
 namespace MoneyManagement.WebApi.Controllers
 {
-	[ApiController, Authorize]
+    [ApiController, Authorize]
 	public class WalletController : BaseController
 	{
 		private readonly IWalletService walletService;

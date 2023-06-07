@@ -15,4 +15,11 @@
     <ProjectReference Include="..\MoneyManagement.Domain\MoneyManagement.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Budgets\" />
+    <Folder Include="DTOs\Goals\" />
+    <Folder Include="DTOs\Reports\" />
+    <Folder Include="DTOs\Reminders\" />
+  </ItemGroup>
+
 </Project>

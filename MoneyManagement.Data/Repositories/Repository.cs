@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using MoneyManagement.Data.Contexts;
-using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Domain.Commons;
-using System.Linq.Expressions;
+using MoneyManagement.Data.IRepositories;
 
 namespace MoneyManagement.Data.Repositories;
 
-public class Repository<TEntity> : IRepostory<TEntity> where TEntity : Auditable
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : Auditable
 {
 	private readonly AppDbContext dbContext;
 	private readonly DbSet<TEntity> dbSet;

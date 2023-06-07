@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using MoneyManagement.Service.Exceptions;
-using System;
+﻿using MoneyManagement.Service.Exceptions;
 
 namespace MoneyManagement.WebApi.MiddleWares
 {

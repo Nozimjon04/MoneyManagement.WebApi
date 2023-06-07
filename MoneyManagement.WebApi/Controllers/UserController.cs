@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MoneyManagement.Service.DTOs;
+using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.WebApi.Models;
 
 namespace MoneyManagement.WebApi.Controllers
 {
-	[ApiController, Authorize]
+    [ApiController, Authorize]
 	public class UserController : BaseController
 	{
 		private readonly IUserService userService;
