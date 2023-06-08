@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagement.WebApi", "MoneyManagement.WebApi\MoneyManagement.WebApi.csproj", "{04668DE9-51BF-49A8-89CF-2DDD248768DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManagement.WebApi", "MoneyManagement.WebApi\MoneyManagement.WebApi.csproj", "{04668DE9-51BF-49A8-89CF-2DDD248768DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagement.Domain", "MoneyManagement.Domain\MoneyManagement.Domain.csproj", "{76A2CE98-F062-4D94-8107-FA03E4A1C344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManagement.Domain", "MoneyManagement.Domain\MoneyManagement.Domain.csproj", "{76A2CE98-F062-4D94-8107-FA03E4A1C344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagement.Data", "MoneyManagement.Data\MoneyManagement.Data.csproj", "{9658DC4E-9D70-40E7-BF81-BE0DE8EE5C72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManagement.Data", "MoneyManagement.Data\MoneyManagement.Data.csproj", "{9658DC4E-9D70-40E7-BF81-BE0DE8EE5C72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagement.Service", "MoneyManagement.Service\MoneyManagement.Service.csproj", "{200830C6-9DB0-42E0-BB7A-C437CCDACF7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManagement.Service", "MoneyManagement.Service\MoneyManagement.Service.csproj", "{200830C6-9DB0-42E0-BB7A-C437CCDACF7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManagement.Shared", "MoneyManagement.Shared\MoneyManagement.Shared.csproj", "{5DB19DA9-F368-4ADB-B0FA-552EABEC08C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{200830C6-9DB0-42E0-BB7A-C437CCDACF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{200830C6-9DB0-42E0-BB7A-C437CCDACF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{200830C6-9DB0-42E0-BB7A-C437CCDACF7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB19DA9-F368-4ADB-B0FA-552EABEC08C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB19DA9-F368-4ADB-B0FA-552EABEC08C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB19DA9-F368-4ADB-B0FA-552EABEC08C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB19DA9-F368-4ADB-B0FA-552EABEC08C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

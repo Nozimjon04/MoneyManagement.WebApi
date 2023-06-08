@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MoneyManagement.Service.DTOs.Transactions;
 
-namespace MoneyManagement.Service.Interfaces
+namespace MoneyManagement.Service.Interfaces;
+
+public interface ITransactionService
 {
-	internal class ITransactionService
-	{
-	}
+	public Task<TransactionForResultDto> RetrieveByIdAsync(long id);
+	public Task<IEnumerable<TransactionForResultDto>> RetrieveAllAsync();
+	public Task<TransactionForResultDto> ModifyAsync(TransactionForUpdateDto dto);
+	public Task<TransactionForResultDto> CreateAsync(TransactionForCreationDto dto);
 }

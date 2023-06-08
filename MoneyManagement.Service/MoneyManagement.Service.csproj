@@ -8,18 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MoneyManagement.Data\MoneyManagement.Data.csproj" />
     <ProjectReference Include="..\MoneyManagement.Domain\MoneyManagement.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTOs\Budgets\" />
-    <Folder Include="DTOs\Goals\" />
-    <Folder Include="DTOs\Reports\" />
-    <Folder Include="DTOs\Reminders\" />
+    <ProjectReference Include="..\MoneyManagement.Shared\MoneyManagement.Shared.csproj" />
   </ItemGroup>
 
 </Project>

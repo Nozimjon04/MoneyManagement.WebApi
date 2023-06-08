@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MoneyManagement.WebApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Interfaces;
-using MoneyManagement.WebApi.Models;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -23,37 +23,41 @@ namespace MoneyManagement.WebApi.Controllers
 				Message = "Success",
 				Data = await this.userService.CreateAsync(dto)
 			});
+
 		[HttpDelete("delete/{id:long}")]
 		public async Task<IActionResult> DelateUserAsync(int id)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.userService.DeleteAsync(id)
+				Data = await this.userService.RemoveAsync(id)
 			});
+
 		[HttpPut("Update")]
-		public async Task<IActionResult> UpdateUserAsync(long id, UserForCreationDto dto)
+		public async Task<IActionResult> UpdateUserAsync(UserForUpdateDto dto)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.userService.UpdateAsync(id,dto)
+				Data = await this.userService.ModifyAsync(dto)
 			});
+
 		[HttpGet("get-by-id{id:long}")]
 		public async Task<IActionResult> GetByIdAsync(long id)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.userService.GetByIdAsync(id)
+				Data = await this.userService.RetrieveByIdAsync(id)
 			});
+
 		[HttpGet("get-list")]
 		public async Task<IActionResult> GetAllUsers()
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.userService.GetAllAsync()
+				Data = await this.userService.RetrieveAllAsync()
 			});
 		
 			

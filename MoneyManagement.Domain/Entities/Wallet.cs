@@ -16,6 +16,5 @@ public class Wallet: Auditable
 
 	// EF Core Relationship
 	public ICollection<Transaction> Transactions { get; set; }
-	public ICollection<Budget> Budgets { get; set; }
 
 }

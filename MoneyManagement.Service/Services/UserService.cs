@@ -1,24 +1,22 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using MoneyManagement.Data.IRepositories;
+using System.Linq.Expressions;
 using MoneyManagement.Domain.Entities;
-using MoneyManagement.Service.DTOs;
+using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
-using System.Linq.Expressions;
 
 namespace MoneyManagement.Service.Services;
 
 public class UserService : IUserService
 {
 	private readonly IMapper mapper;
-	private readonly IRepostory<User> userReposotpry;
 	private readonly IWalletService walletService;
+	private readonly IRepository<User> userReposotpry;
 
 	public UserService(IMapper mapper, 
-		IRepostory<User> userRepository,
-		IWalletService walletService)
+		IWalletService walletService,
+		IRepository<User> userRepository)
 	{
 		this.mapper = mapper;
 		this.walletService = walletService;
@@ -38,7 +36,7 @@ public class UserService : IUserService
 		return this.mapper.Map<UserResultDto>(result);
 	}
 
-	public async Task<bool> DeleteAsync(long id)
+	public async Task<bool> RemoveAsync(long id)
 	{
 		var result = await this.userReposotpry.DeleteAsync(u => u.Id == id);
 		await this.userReposotpry.SaveChangeAsync();
@@ -47,7 +45,7 @@ public class UserService : IUserService
 	}
 	
 
-	public async Task<List<UserResultDto>> GetAllAsync(Expression<Func<User, bool>> expression = null, string search = null)
+	public async Task<List<UserResultDto>> RetrieveAllAsync(Expression<Func<User, bool>> expression = null, string search = null)
 	{
 		var users = this.userReposotpry.SelectAllAsync(expression); 
 		if (!string.IsNullOrEmpty(search))
@@ -59,7 +57,7 @@ public class UserService : IUserService
 		return this.mapper.Map<List<UserResultDto>>(users);
 	}
 
-	public async Task<UserResultDto> GetByIdAsync(long id)
+	public async Task<UserResultDto> RetrieveByIdAsync(long id)
 	{
 		var user = await this.userReposotpry.SelectAsync(u => u.Id == id);
 		if (user is null)
@@ -74,14 +72,13 @@ public class UserService : IUserService
 		=> await this.userReposotpry.SelectAsync(u=> u.Email== email);
 	
 
-	public async Task<UserResultDto> UpdateAsync(long id, UserForCreationDto dto)
+	public async Task<UserResultDto> ModifyAsync(UserForUpdateDto dto)
 	{
-		var user = await this.userReposotpry.SelectAsync(u => u.Id==id);
+		var user = await this.userReposotpry.SelectAsync(u => u.Id==dto.Id);
 		if (user is null)
 			throw new CustomException(404, "User is not found ");
 		
 		var result = this.mapper.Map(dto, user);
-		result.Id=id;
 		result.UpdateAt=DateTime.UtcNow;
 		await this.userReposotpry.SaveChangeAsync();
 

@@ -1,5 +1,6 @@
-﻿using MoneyManagement.Domain.Commons;
-using MoneyManagement.Domain.Enums;
+﻿using MoneyManagement.Domain.Enums;
+using MoneyManagement.Domain.Commons;
+using System.Text.Json.Serialization;
 
 namespace MoneyManagement.Domain.Entities;
 
@@ -12,6 +13,7 @@ public class User:Auditable
 	public GenderType Type { get; set; }
 
 	// EF core realtionship
+	[JsonIgnore]
 	public ICollection<Wallet> Wallets { get; set; }
 	public ICollection<Goal> Goals { get; set; }
 	public ICollection<Reminder> Reminders { get; set; }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MoneyManagement.Service.DTOs.Wallets;
-using MoneyManagement.Service.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 using MoneyManagement.WebApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using MoneyManagement.Service.Interfaces;
+using MoneyManagement.Service.DTOs.Wallets;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -35,12 +35,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpPut("Update")]
-		public async Task<IActionResult> UpdateWalletAsync(long id, WalletForCreationDto dto)
+		public async Task<IActionResult> UpdateWalletAsync(WalletForUpdateDto dto)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.walletService.UpdateAsync(id, dto)
+				Data = await this.walletService.UpdateAsync(dto)
 			});
 
 		[HttpGet("get-by-id{id:long}")]

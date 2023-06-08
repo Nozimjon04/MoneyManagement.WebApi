@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MoneyManagement.Domain.Enums;
 
-namespace MoneyManagement.Service.DTOs.Categories
+namespace MoneyManagement.Service.DTOs.Categories;
+
+public class CategoryForResultDto
 {
-	internal class CategoryForResultDto
-	{
-	}
+	public long Id { get; set; }
+
+	public long UserId { get; set; }
+
+	public string Name { get; set; }
+
 }

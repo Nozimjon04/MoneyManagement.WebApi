@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MoneyManagement.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace MoneyManagement.Service.DTOs.Transactions
+namespace MoneyManagement.Service.DTOs.Transactions;
+
+public class TransactionForCreationDto
 {
-	internal class TransactionForCreationDto
-	{
-	}
+	[Required]
+	public long WalletId { get; set; }
+
+	[Required]
+	public long CategoryId { get; set; }
+
+	public TransactionType Type { get; set; }
+
+
+	[Column(TypeName = "decimal(10,2)")]
+	public decimal Amount { get; set; }
+
+	public string Description { get; set; }
 }

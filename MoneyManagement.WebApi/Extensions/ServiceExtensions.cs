@@ -1,12 +1,12 @@
-﻿using System.Text;
-using System.Reflection;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using MoneyManagement.Service.Services;
+using Microsoft.OpenApi.Models;
+using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Data.Repositories;
 using MoneyManagement.Service.Interfaces;
-using MoneyManagement.Data.IRepositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MoneyManagement.Service.Services;
+using System.Reflection;
+using System.Text;
 
 namespace MoneyManagement.WebApi.Extensions
 {
@@ -16,8 +16,11 @@ namespace MoneyManagement.WebApi.Extensions
 		{
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IGoalService, GoalService>();
 			services.AddScoped<IWalletService, WalletService>();
-			services.AddScoped<ICategoryService,CategoryService>();
+			services.AddScoped<IReportService, ReportService>();
+			services.AddScoped<IReportService, ReportService>();
+			services.AddScoped<ICategoryService, CategoryService>();
 			services.AddScoped<ITransactionService, TransactionService>();
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 		}

@@ -23,6 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 				option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add MappingProfile
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddHttpContextAccessor();
 
 //Convert  Api url name to dash case 
 builder.Services.AddControllers(options =>
@@ -42,6 +43,8 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 var app = builder.Build();
+
+app.InitAccessor();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -2,7 +2,7 @@
 
 namespace MoneyManagement.Data.IRepositories;
 
-public interface IRepostory<TEntity>
+public interface IRepository<TEntity>
 {
 	public Task<bool> SaveChangeAsync(); 
 	public Task<TEntity> InsertAsync(TEntity entity);
