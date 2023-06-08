@@ -1,0 +1,45 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using MoneyManagement.WebApi.Models;
+using MoneyManagement.Service.Interfaces;
+using MoneyManagement.Service.DTOs.Reports;
+
+namespace MoneyManagement.WebApi.Controllers
+{
+	public class ReportController : BaseController
+	{
+		private readonly IReportService reportService;
+
+		public ReportController(IReportService reportService)
+		{
+			this.reportService = reportService;
+		}
+
+
+		[HttpDelete("delete/{id:long}")]
+		public async Task<IActionResult> DelateReportAsync(int id)
+			=> Ok(new Response
+			{
+				Code = 200,
+				Message = "Success",
+				Data = await this.reportService.RemoveAsync(id)
+			});
+
+		[HttpPut("Update")]
+		public async Task<IActionResult> UpdateReportAsync(ReportForUpdateDto dto)
+			=> Ok(new Response
+			{
+				Code = 200,
+				Message = "Success",
+				Data = await this.reportService.ModifyAsync(dto)
+			});
+
+		[HttpGet("get-list")]
+		public async Task<IActionResult> GetAllReports()
+			=> Ok(new Response
+			{
+				Code = 200,
+				Message = "Success",
+				Data = await this.reportService.RetrieveAllAsync()
+			});
+	}
+}

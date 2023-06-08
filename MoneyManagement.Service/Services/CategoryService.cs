@@ -52,7 +52,7 @@ public class CategoryService : ICategoryService
 		return this.mapper.Map<IEnumerable<CategoryForResultDto>>(categories);
 	}
 
-	public async Task<CategoryForResultDto> RetrieveById(long Id)
+	public async Task<CategoryForResultDto> RetrieveByIdAsync(long Id)
 	{
 		var category = await this.categoryRepository.SelectAsync(c => c.Id == Id);
 		if (category is null)

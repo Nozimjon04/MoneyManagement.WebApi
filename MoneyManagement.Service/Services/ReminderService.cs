@@ -70,7 +70,7 @@ public class ReminderService : IReminderService
 		return this.mapper.Map<IEnumerable<ReminderForResultDto>>(reminders);
 	}
 
-	public async Task<ReminderForResultDto> RetrieveById(long id)
+	public async Task<ReminderForResultDto> RetrieveByIdAsync(long id)
 	{
 		var reminder = await this.reminderRepository.SelectAsync(r => r.Id == id);
 		if (reminder is null)

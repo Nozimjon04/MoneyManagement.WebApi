@@ -64,7 +64,7 @@ public class GoalService : IGoalService
 		return this.mapper.Map<IEnumerable<GoalForResultDto>>(goals);
 	}
 
-	public async Task<GoalForResultDto> RetrieveById(long id)
+	public async Task<GoalForResultDto> RetrieveByIdAsync(long id)
 	{
 		var goal = await this.goalRepository.SelectAsync(g=> g.Id == id);
 		if (goal is null)
