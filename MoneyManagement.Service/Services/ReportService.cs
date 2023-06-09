@@ -1,21 +1,26 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MoneyManagement.Data.IRepositories;
+using MoneyManagement.Shared.Helpers;
 using MoneyManagement.Domain.Entities;
-using MoneyManagement.Service.DTOs.Reports;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
+using MoneyManagement.Data.IRepositories;
+using MoneyManagement.Service.DTOs.Reports;
 
 namespace MoneyManagement.Service.Services;
 
 public class ReportService : IReportService
 {
 	private readonly IMapper mapper;
+	private readonly IUserService userService;
 	private readonly IRepository<Report> reportRepository;
 
-	public ReportService(IMapper mapper, IRepository<Report> reportRepository)
+	public ReportService(IMapper mapper,
+		IUserService userService,
+		IRepository<Report> reportRepository)
 	{
 		this.mapper = mapper;
+		this.userService = userService;
 		this.reportRepository = reportRepository;
 	}
 	public async Task<ReportForResultDto> ModifyAsync(ReportForUpdateDto dto)
@@ -36,6 +41,8 @@ public class ReportService : IReportService
 		var report = await this.reportRepository.DeleteAsync(r => r.Id ==id);
 		if (!report)
 			throw new CustomException(404, "Report is not found");
+		await this.reportRepository.SaveChangeAsync();
+
 		return true;
 	}
 
@@ -43,5 +50,13 @@ public class ReportService : IReportService
 	{
 		var reports = await this.reportRepository.SelectAllAsync().ToListAsync();
 		return this.mapper.Map<IEnumerable<ReportForResultDto>>(reports);
+	}
+
+	public async Task<IEnumerable<ReportForResultDto>> RetrieveUserStatistics()
+	{
+		var user = await userService.RetrieveByIdAsync(HttpContextHelper.UserId ?? 0);
+		var userStatistics = this.reportRepository.SelectAllAsync(us => us.UserId == user.Id);
+
+		return this.mapper.Map<IEnumerable<ReportForResultDto>>(userStatistics);
 	}
 }

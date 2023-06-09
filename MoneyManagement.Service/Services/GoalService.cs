@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MoneyManagement.Shared.Helpers;
 using MoneyManagement.Domain.Entities;
 using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Service.DTOs.Goals;
@@ -55,6 +56,8 @@ public class GoalService : IGoalService
 		bool goal = await this.goalRepository.DeleteAsync(g => g.Id == id);
 		if (!goal)
 			throw new CustomException(404, "Goal is not found");
+		await this.goalRepository.SaveChangeAsync();
+
 		return true;
 	}
 
@@ -70,5 +73,13 @@ public class GoalService : IGoalService
 		if (goal is null)
 			throw new CustomException(404, "Goal is not found");
 		return this.mapper.Map<GoalForResultDto>(goal);
+	}
+
+	public async Task<IEnumerable<GoalForResultDto>> RetrieveUserGoals()
+	{
+		var user = await userService.RetrieveByIdAsync(HttpContextHelper.UserId ?? 0);
+		var goals = this.goalRepository.SelectAllAsync(g => g.UserId == user.Id && g.TargetDate >= DateTime.UtcNow);
+
+		return this.mapper.Map<IEnumerable<GoalForResultDto>>(goals);
 	}
 }

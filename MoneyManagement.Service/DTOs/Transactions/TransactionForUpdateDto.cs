@@ -13,7 +13,7 @@ public class TransactionForUpdateDto
 
 	public long CategoryId { get; set; }
 
-	public TransactionType Tye { get; set; }
+	public TransactionType Type { get; set; }
 
 	public decimal Amount { get; set; }
 

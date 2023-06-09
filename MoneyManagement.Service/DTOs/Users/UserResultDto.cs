@@ -10,5 +10,4 @@ public class UserResultDto
     public string Name { get; set; }
     public string Surname { get; set; }
 	public GenderType Type { get; set; }
-	public List<WalletResultDto> Wallets { get; set; }
 }

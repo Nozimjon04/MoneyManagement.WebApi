@@ -6,7 +6,7 @@ using MoneyManagement.Service.Interfaces;
 
 namespace MoneyManagement.WebApi.Controllers
 {
-    [ApiController, Authorize]
+    //[ApiController, Authorize]
 	public class UserController : BaseController
 	{
 		private readonly IUserService userService;

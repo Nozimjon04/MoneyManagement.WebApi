@@ -23,6 +23,7 @@ public class CategoryService : ICategoryService
 		var mappedCategory = this.mapper.Map<Category>(dto);
 		mappedCategory.CreateAt = DateTime.UtcNow;
 		var result = await this.categoryRepository.InsertAsync(mappedCategory);
+		await this.categoryRepository.SaveChangeAsync();
 
 		return this.mapper.Map<CategoryForResultDto>(result);
 	}
@@ -34,6 +35,8 @@ public class CategoryService : ICategoryService
 			throw new CustomException(404, "Category is not found");
 		var mappedCategory = this.mapper.Map(dto, category);
 		mappedCategory.UpdateAt = DateTime.UtcNow;
+		await this.categoryRepository.SaveChangeAsync();
+
 
 		return this.mapper.Map<CategoryForResultDto>(mappedCategory);
 	}
@@ -43,6 +46,8 @@ public class CategoryService : ICategoryService
 		var category = await categoryRepository.DeleteAsync(c => c.Id == Id);
 		if (!category)
 			throw new CustomException(404, "Category is not found");
+		await this.categoryRepository.SaveChangeAsync();
+
 		return true;
 	}
 

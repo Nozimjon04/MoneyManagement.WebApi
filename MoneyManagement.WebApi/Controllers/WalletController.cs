@@ -6,7 +6,7 @@ using MoneyManagement.Service.DTOs.Wallets;
 
 namespace MoneyManagement.WebApi.Controllers
 {
-    [ApiController, Authorize]
+   // [ApiController, Authorize]
 	public class WalletController : BaseController
 	{
 		private readonly IWalletService walletService;

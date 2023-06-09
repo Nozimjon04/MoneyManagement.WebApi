@@ -19,7 +19,7 @@ namespace MoneyManagement.WebApi.Extensions
 			services.AddScoped<IGoalService, GoalService>();
 			services.AddScoped<IWalletService, WalletService>();
 			services.AddScoped<IReportService, ReportService>();
-			services.AddScoped<IReportService, ReportService>();
+			services.AddScoped<IReminderService, ReminderService>();
 			services.AddScoped<ICategoryService, CategoryService>();
 			services.AddScoped<ITransactionService, TransactionService>();
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -54,7 +54,7 @@ namespace MoneyManagement.WebApi.Extensions
 		{
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ahsan.Api", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "MoneyManagement.Api", Version = "v1" });
 				var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 
 				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

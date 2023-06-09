@@ -24,6 +24,7 @@ public class TransactionService : ITransactionService
 	{
 		this.mapper = mapper;
 		this.walletRepository = walletRepository;
+		this.reportRepository = reportRepository;
 		this.categoryRepository = categoryRepository;
 		this.transactionRepository = transactionRepository;
 
@@ -39,11 +40,11 @@ public class TransactionService : ITransactionService
 		var mappedTransaction = this.mapper.Map<Transaction>(dto);
 		mappedTransaction.CreateAt = DateTime.UtcNow;
 		#region Cheking for valid amount
-		if (dto.Type.Equals("income"))
+		if ((int)dto.Type == 10)
 		{
 			wallet.Amount += dto.Amount;
 		}
-		else if (dto.Type.Equals("expense"))
+		else if ((int)dto.Type == 20)
 		{
 			if(wallet.Amount - dto.Amount > 0)
 			{
@@ -57,8 +58,6 @@ public class TransactionService : ITransactionService
 		#endregion
 
 		var result = await this.transactionRepository.InsertAsync(mappedTransaction);
-		await this.transactionRepository.SaveChangeAsync();
-		await this.walletRepository.SaveChangeAsync();
 
 		// Writing report once user make transaction for statistics
 		Report report = new Report();
@@ -67,6 +66,8 @@ public class TransactionService : ITransactionService
 		report.TransactionType = mappedTransaction.Type;
 		await this.reportRepository.InsertAsync(report);
 		await this.reportRepository.SaveChangeAsync();
+		await this.transactionRepository.SaveChangeAsync();
+		await this.walletRepository.SaveChangeAsync();
 
 		// wallet and category are included in transaction
 		result.Wallet = wallet;
@@ -83,11 +84,11 @@ public class TransactionService : ITransactionService
 			throw new CustomException(404, "Transaction or Wallet or Category is not found ");
 
 		#region Cheking for valid amount
-		if (dto.Tye.Equals("income"))
+		if ((int)dto.Type == 10)
 		{
 			wallet.Amount += dto.Amount;
 		}
-		else if (dto.Tye.Equals("expense"))
+		else if ((int)dto.Type == 20)
 		{
 			if (wallet.Amount - dto.Amount > 0)
 			{

@@ -57,5 +57,14 @@ namespace MoneyManagement.WebApi.Controllers
 				Message = "Success",
 				Data = await this.goalService.RetrieveAllAsync()
 			});
+
+		[HttpGet("get-user-goals")]
+		public async Task<IActionResult> GetUserGoals()
+			=> Ok(new Response
+			{
+				Code = 200,
+				Message = "Success",
+				Data = await this.goalService.RetrieveUserGoals()
+			});
 	}
 }

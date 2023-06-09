@@ -41,5 +41,14 @@ namespace MoneyManagement.WebApi.Controllers
 				Message = "Success",
 				Data = await this.reportService.RetrieveAllAsync()
 			});
+
+		[HttpGet("get-user-statistics")]
+		public async Task<IActionResult> RetrieveUserStatistics()
+			=> Ok( new Response
+			{
+				Code = 200,
+				Message = "Success",
+				Data = await this.reportService.RetrieveUserStatistics()
+			});
 	}
 }

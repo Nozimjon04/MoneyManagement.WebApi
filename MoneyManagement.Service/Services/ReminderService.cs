@@ -52,7 +52,7 @@ public class ReminderService : IReminderService
 
 	public async Task<IEnumerable<ReminderForResultDto>> NotifyUserAsync()
 	{
-		var reminders = await this.reminderRepository.SelectAllAsync(r => r.UserId == HttpContextHelper.UserId && r.TargetDate<DateTime.UtcNow).ToListAsync();
+		var reminders = await this.reminderRepository.SelectAllAsync(r => r.UserId == HttpContextHelper.UserId && r.TargetDate>=DateTime.UtcNow).ToListAsync();
 		return this.mapper.Map<IEnumerable<ReminderForResultDto>>(reminders);
 	}
 
@@ -61,6 +61,8 @@ public class ReminderService : IReminderService
 		bool reminder = await this.reminderRepository.DeleteAsync(r => r.Id == id);
 		if (!reminder)
 			throw new CustomException(404, "Reminder is not found");
+		await this.reminderRepository.SaveChangeAsync();
+
 		return reminder;
 	}
 

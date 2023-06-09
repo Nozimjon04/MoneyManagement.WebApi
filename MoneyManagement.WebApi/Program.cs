@@ -25,6 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddHttpContextAccessor();
 
+
 //Convert  Api url name to dash case 
 builder.Services.AddControllers(options =>
 	options.Conventions.Add(

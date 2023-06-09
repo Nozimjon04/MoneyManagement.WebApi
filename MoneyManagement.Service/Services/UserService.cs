@@ -11,15 +11,11 @@ namespace MoneyManagement.Service.Services;
 public class UserService : IUserService
 {
 	private readonly IMapper mapper;
-	private readonly IWalletService walletService;
 	private readonly IRepository<User> userReposotpry;
 
-	public UserService(IMapper mapper, 
-		IWalletService walletService,
-		IRepository<User> userRepository)
+	public UserService(IMapper mapper, IRepository<User> userRepository)
 	{
 		this.mapper = mapper;
-		this.walletService = walletService;
 		this.userReposotpry = userRepository;
 	}
 	public async Task<UserResultDto> CreateAsync(UserForCreationDto dto)
@@ -63,7 +59,7 @@ public class UserService : IUserService
 		if (user is null)
 			throw new CustomException(404, "User is not found ");
 		var result = this.mapper.Map<UserResultDto>(user);
-		result.Wallets = await walletService.GetAllAsync(w => w.UserId == id);
+		
 
 		return result;
 	}

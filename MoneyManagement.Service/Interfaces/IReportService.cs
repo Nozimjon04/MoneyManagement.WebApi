@@ -7,4 +7,5 @@ public interface IReportService
 	public Task<bool> RemoveAsync(long id);
 	public Task<IEnumerable<ReportForResultDto>> RetrieveAllAsync();
 	public Task<ReportForResultDto> ModifyAsync(ReportForUpdateDto dto);
+	public Task<IEnumerable<ReportForResultDto>> RetrieveUserStatistics();
 }

@@ -12,17 +12,23 @@ namespace MoneyManagement.Service.Services;
 public class WalletService : IWalletService
 {
 	private readonly IMapper mapper;
+	private readonly IUserService userService;
 	private readonly IRepository<Wallet> walletRepostory;
 
-	public WalletService(IMapper mapper, IRepository<Wallet> walletRepostory)
+	public WalletService(IMapper mapper, 
+		IUserService userService,
+		IRepository<Wallet> walletRepostory)
 	{
 		this.mapper = mapper;
+		this.userService = userService;
 		this.walletRepostory = walletRepostory;
 	}
 
 	public async Task<WalletResultDto> CreateAsync(WalletForCreationDto dto)
 	{
-		
+		var user = await this.userService.RetrieveByIdAsync(dto.UserId);
+		if (user is null)
+			throw new CustomException(404, "User is not found");
 		var mappedWallet = this.mapper.Map<Wallet>(dto);
 		mappedWallet.CreateAt = DateTime.UtcNow;
 		var result = await this.walletRepostory.InsertAsync(mappedWallet);
@@ -63,7 +69,8 @@ public class WalletService : IWalletService
 	public async Task<WalletResultDto> UpdateAsync(WalletForUpdateDto dto)
 	{
 		var wallet = await this.walletRepostory.SelectAsync(w => w.Id == dto.Id);
-		if (wallet is null)
+		var user = await this.userService.RetrieveByIdAsync(dto.UserId);
+		if (wallet is null || user is null)
 			throw new CustomException(404, "Wallet is not found ");
 
 		var result = this.mapper.Map(dto, wallet);

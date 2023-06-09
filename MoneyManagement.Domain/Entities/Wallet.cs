@@ -1,6 +1,7 @@
 ﻿using MoneyManagement.Domain.Commons;
 using MoneyManagement.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using System.Transactions;
 
 namespace MoneyManagement.Domain.Entities;
@@ -15,6 +16,7 @@ public class Wallet: Auditable
 	public string Description { get; set; }
 
 	// EF Core Relationship
+	[JsonIgnore]
 	public ICollection<Transaction> Transactions { get; set; }
 
 }
