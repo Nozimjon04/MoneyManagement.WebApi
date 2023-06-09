@@ -5,7 +5,9 @@ using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Data.IRepositories;
+using MoneyManagement.Service.Extensions;
 using MoneyManagement.Service.DTOs.Reminders;
+using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.Service.Services;
 
@@ -66,9 +68,11 @@ public class ReminderService : IReminderService
 		return reminder;
 	}
 
-	public async Task<IEnumerable<ReminderForResultDto>> RetrieveAllAsync()
+	public async Task<IEnumerable<ReminderForResultDto>> RetrieveAllAsync(PaginationParams @params)
 	{
-		var reminders = await this.reminderRepository.SelectAllAsync().ToListAsync();
+		var reminders = await this.reminderRepository.SelectAllAsync()
+			.ToPagedList(@params)
+			.ToListAsync();
 		return this.mapper.Map<IEnumerable<ReminderForResultDto>>(reminders);
 	}
 

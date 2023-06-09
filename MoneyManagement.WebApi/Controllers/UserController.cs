@@ -3,6 +3,7 @@ using MoneyManagement.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Interfaces;
+using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -52,12 +53,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllUsers()
+		public async Task<IActionResult> GetAllUsers([FromQuery] PaginationParams @params)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.userService.RetrieveAllAsync()
+				Data = await this.userService.RetrieveAllAsync(@params)
 			});
 		
 			

@@ -4,8 +4,10 @@ using MoneyManagement.Shared.Helpers;
 using MoneyManagement.Domain.Entities;
 using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Service.DTOs.Goals;
+using MoneyManagement.Service.Extensions;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
+using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.Service.Services;
 
@@ -61,9 +63,11 @@ public class GoalService : IGoalService
 		return true;
 	}
 
-	public async Task<IEnumerable<GoalForResultDto>> RetrieveAllAsync()
+	public async Task<IEnumerable<GoalForResultDto>> RetrieveAllAsync(PaginationParams @params)
 	{
-		var goals = await this.goalRepository.SelectAllAsync().ToListAsync();
+		var goals = await this.goalRepository.SelectAllAsync()
+			.ToPagedList(@params)
+			.ToListAsync();
 		return this.mapper.Map<IEnumerable<GoalForResultDto>>(goals);
 	}
 

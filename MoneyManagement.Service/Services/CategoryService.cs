@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Domain.Entities;
-using MoneyManagement.Service.DTOs.Categories;
+using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Service.Exceptions;
+using MoneyManagement.Service.Extensions;
 using MoneyManagement.Service.Interfaces;
+using MoneyManagement.Domain.Configurations;
+using MoneyManagement.Service.DTOs.Categories;
 
 namespace MoneyManagement.Service.Services;
 
@@ -51,9 +53,11 @@ public class CategoryService : ICategoryService
 		return true;
 	}
 
-	public  async Task<IEnumerable<CategoryForResultDto>> RetrieveAllAsync()
+	public  async Task<IEnumerable<CategoryForResultDto>> RetrieveAllAsync(PaginationParams @params)
 	{
-		var categories =  await this.categoryRepository.SelectAllAsync().ToListAsync();
+		var categories =  await this.categoryRepository.SelectAllAsync()
+			.ToPagedList(@params)
+			.ToListAsync();
 		return this.mapper.Map<IEnumerable<CategoryForResultDto>>(categories);
 	}
 

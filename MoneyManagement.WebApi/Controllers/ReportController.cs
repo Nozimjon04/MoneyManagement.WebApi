@@ -2,6 +2,7 @@
 using MoneyManagement.WebApi.Models;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Service.DTOs.Reports;
+using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -34,12 +35,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllReports()
+		public async Task<IActionResult> GetAllReports([FromQuery] PaginationParams @params)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.reportService.RetrieveAllAsync()
+				Data = await this.reportService.RetrieveAllAsync(@params)
 			});
 
 		[HttpGet("get-user-statistics")]
