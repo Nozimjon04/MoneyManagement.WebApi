@@ -3,7 +3,6 @@ using MoneyManagement.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Service.DTOs.Wallets;
-using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -32,7 +31,7 @@ namespace MoneyManagement.WebApi.Controllers
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.walletService.RemoveAsync(id)
+				Data = await this.walletService.DeleteAsync(id)
 			});
 
 		[HttpPut("Update")]
@@ -41,7 +40,7 @@ namespace MoneyManagement.WebApi.Controllers
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.walletService.ModifyAsync(dto)
+				Data = await this.walletService.UpdateAsync(dto)
 			});
 
 		[HttpGet("get-by-id{id:long}")]
@@ -50,16 +49,16 @@ namespace MoneyManagement.WebApi.Controllers
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.walletService.RetrieveByIdAsync(id)
+				Data = await this.walletService.GetByIdAsync(id)
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllWallets([FromQuery] PaginationParams @params)
+		public async Task<IActionResult> GetAllWallets()
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.walletService.RetrieveAllAsync(@params)
+				Data = await this.walletService.GetAllAsync()
 			});
 	}
 }

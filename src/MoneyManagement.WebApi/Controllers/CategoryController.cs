@@ -2,7 +2,6 @@
 using MoneyManagement.WebApi.Models;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Service.DTOs.Categories;
-using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -52,12 +51,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllCategories([FromQuery] PaginationParams @params)
+		public async Task<IActionResult> GetAllCategories()
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.categoryService.RetrieveAllAsync(@params)
+				Data = await this.categoryService.RetrieveAllAsync()
 			});
 	}
 }

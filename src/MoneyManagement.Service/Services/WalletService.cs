@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Data.IRepositories;
-using MoneyManagement.Service.Extensions;
 using MoneyManagement.Service.DTOs.Wallets;
-using MoneyManagement.Domain.Configurations;
+using Microsoft.EntityFrameworkCore;
 
 namespace MoneyManagement.Service.Services;
 
@@ -38,7 +37,7 @@ public class WalletService : IWalletService
 		return this.mapper.Map<WalletResultDto>(result);
 	}
 
-	public async Task<bool> RemoveAsync(long id)
+	public async Task<bool> DeleteAsync(long id)
 	{
 		var result = await this.walletRepostory.DeleteAsync(w => w.Id == id);
 		await this.walletRepostory.SaveChangeAsync();
@@ -47,16 +46,18 @@ public class WalletService : IWalletService
 	}
 	
 
-	public async Task<IEnumerable<WalletResultDto>> RetrieveAllAsync(PaginationParams @params)
+	public async Task<List<WalletResultDto>> GetAllAsync(Expression<Func<Wallet, bool>> expression = null, string search = null)
 	{
-		var wallets = await this.walletRepostory.SelectAllAsync()
-			.ToPagedList(@params)
-			.ToListAsync();
-	
-		return this.mapper.Map<IEnumerable<WalletResultDto>>(wallets);
+		var wallets = this.walletRepostory.SelectAllAsync(expression);
+		if (!string.IsNullOrEmpty(search))
+		{
+			wallets = wallets.Where(w => w.Description.ToLower().Contains(search.ToLower()));
+		}
+		var result = await wallets.ToListAsync();	
+		return this.mapper.Map<List<WalletResultDto>>(result);
 	}
 
-	public async Task<WalletResultDto> RetrieveByIdAsync(long id)
+	public async Task<WalletResultDto> GetByIdAsync(long id)
 	{
 		var wallet = await this.walletRepostory.SelectAsync(w => w.Id == id);
 		if (wallet is null)
@@ -65,7 +66,7 @@ public class WalletService : IWalletService
 		 return this.mapper.Map<WalletResultDto>(wallet);
 	}
 
-	public async Task<WalletResultDto> ModifyAsync(WalletForUpdateDto dto)
+	public async Task<WalletResultDto> UpdateAsync(WalletForUpdateDto dto)
 	{
 		var wallet = await this.walletRepostory.SelectAsync(w => w.Id == dto.Id);
 		var user = await this.userService.RetrieveByIdAsync(dto.UserId);

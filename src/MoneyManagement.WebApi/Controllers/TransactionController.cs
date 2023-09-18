@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoneyManagement.Domain.Configurations;
 using MoneyManagement.Service.DTOs.Transactions;
 using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Interfaces;
@@ -44,12 +43,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllTransactions([FromQuery] PaginationParams @params)
+		public async Task<IActionResult> GetAllTransactions()
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.transactionService.RetrieveAllAsync(@params)
+				Data = await this.transactionService.RetrieveAllAsync()
 			});
 	}
 }

@@ -5,9 +5,7 @@ using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Data.IRepositories;
-using MoneyManagement.Service.Extensions;
 using MoneyManagement.Service.DTOs.Reports;
-using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.Service.Services;
 
@@ -48,11 +46,9 @@ public class ReportService : IReportService
 		return true;
 	}
 
-	public async Task<IEnumerable<ReportForResultDto>> RetrieveAllAsync(PaginationParams @params)
+	public async Task<IEnumerable<ReportForResultDto>> RetrieveAllAsync()
 	{
-		var reports = await this.reportRepository.SelectAllAsync()
-			.ToPagedList(@params)
-			.ToListAsync();
+		var reports = await this.reportRepository.SelectAllAsync().ToListAsync();
 		return this.mapper.Map<IEnumerable<ReportForResultDto>>(reports);
 	}
 

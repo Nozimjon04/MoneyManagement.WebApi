@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using MoneyManagement.Domain.Entities;
 using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Service.DTOs.Users;
 using MoneyManagement.Service.Exceptions;
 using MoneyManagement.Service.Interfaces;
-using MoneyManagement.Service.Extensions;
-using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.Service.Services;
 
@@ -43,10 +41,14 @@ public class UserService : IUserService
 	}
 	
 
-	public async Task<List<UserResultDto>> RetrieveAllAsync(PaginationParams @params)
+	public async Task<List<UserResultDto>> RetrieveAllAsync(Expression<Func<User, bool>> expression = null, string search = null)
 	{
-		var users = await this.userReposotpry.SelectAllAsync()
-			.ToPagedList(@params).ToListAsync(); 
+		var users = this.userReposotpry.SelectAllAsync(expression); 
+		if (!string.IsNullOrEmpty(search))
+		{
+			users = users.Where(u => u.Name.ToLower().Contains(search.ToLower()) ||
+				u.Surname.ToLower().Contains(search.ToLower()));
+		}
 
 		return this.mapper.Map<List<UserResultDto>>(users);
 	}

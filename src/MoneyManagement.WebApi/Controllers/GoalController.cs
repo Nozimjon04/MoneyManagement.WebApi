@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoneyManagement.Domain.Configurations;
 using MoneyManagement.Service.DTOs.Goals;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.WebApi.Models;
@@ -51,12 +50,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllGoals([FromQuery] PaginationParams @params)
+		public async Task<IActionResult> GetAllGoals()
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.goalService.RetrieveAllAsync(@params)
+				Data = await this.goalService.RetrieveAllAsync()
 			});
 
 		[HttpGet("get-user-goals")]

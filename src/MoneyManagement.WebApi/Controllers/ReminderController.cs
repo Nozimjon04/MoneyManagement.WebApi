@@ -2,7 +2,6 @@
 using MoneyManagement.WebApi.Models;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Service.DTOs.Reminders;
-using MoneyManagement.Domain.Configurations;
 
 namespace MoneyManagement.WebApi.Controllers
 {
@@ -52,12 +51,12 @@ namespace MoneyManagement.WebApi.Controllers
 			});
 
 		[HttpGet("get-list")]
-		public async Task<IActionResult> GetAllReminders([FromQuery] PaginationParams @params)
+		public async Task<IActionResult> GetAllReminders()
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.reminderService.RetrieveAllAsync(@params)
+				Data = await this.reminderService.RetrieveAllAsync()
 			});
 		[HttpGet("get-notifications")]
 		public async Task<IActionResult> NotifyUser()

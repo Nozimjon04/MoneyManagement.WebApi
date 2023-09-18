@@ -4,8 +4,6 @@ using MoneyManagement.Domain.Entities;
 using MoneyManagement.Service.Interfaces;
 using MoneyManagement.Data.IRepositories;
 using MoneyManagement.Service.Exceptions;
-using MoneyManagement.Service.Extensions;
-using MoneyManagement.Domain.Configurations;
 using MoneyManagement.Service.DTOs.Transactions;
 
 namespace MoneyManagement.Service.Services;
@@ -110,9 +108,9 @@ public class TransactionService : ITransactionService
 		return this.mapper.Map<TransactionForResultDto>(mappedTransaction);
 	}
 
-	public async Task<IEnumerable<TransactionForResultDto>> RetrieveAllAsync(PaginationParams @params)
+	public async Task<IEnumerable<TransactionForResultDto>> RetrieveAllAsync()
 	{
-		var transactionQuery = this.transactionRepository.SelectAllAsync().ToPagedList(@params);
+		var transactionQuery = this.transactionRepository.SelectAllAsync();
 		if (transactionQuery is not null)
 		{
 			transactionQuery = transactionQuery.Include("Wallet").Include("Category");
